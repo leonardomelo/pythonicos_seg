@@ -29,13 +29,18 @@ print logs
 '''observa-se aqui a divisão por linha da lista'''
 logs = logs.split("\n")
 del logs[0]
-
+'''
+for x in logs:
+    print x
+for x in logs:
+    for y in range(0,len(logs)-1):
+        logs[y] = x.split(' ')
+'''
 y=0;
 for x in logs:
     logs[y] = x.split(' ')
     y=y+1
-
-del logs[y-1]
+del logs[len(logs)-1]
 
 for x in logs:
     del x[1]
@@ -56,7 +61,7 @@ for x in logs:
     dicio['Caminho'] = x[4]
     dicio['Resposta'] = x[6]
     dicio['Tamanho'] = x[7]
-    lista.append(dicio)
+    lista.append(dicio.copy())
 
 for x in lista:
     for key,value in x.items():
