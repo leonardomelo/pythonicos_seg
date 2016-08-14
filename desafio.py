@@ -29,19 +29,41 @@ print logs
 '''observa-se aqui a divisão por linha da lista'''
 logs = logs.split("\n")
 del logs[0]
-'''
-for x in logs:
-    print x
-for x in logs:
-    for y in range(0,len(logs)-1):
-        logs[y] = x.split(' ')
-'''
+del logs[len(logs)-1]
+
+dicio = OrderedDict()
+lista = []
+
+'''divisão por aspas, limpeza e criação da lista de dicionários'''
 y=0;
 for x in logs:
     logs[y] = x.split(' ')
+    del logs[y][1]
+    del logs[y][1]
+    logs[y][1] = logs[y][1].replace('[','')
+    logs[y][2] = logs[y][2].replace(']','')
+    logs[y][3] = logs[y][3].replace('"','')
+    logs[y][5] = logs[y][5].replace('"','')
+    dicio['Data\t'] = logs[y][1][0:11]
+    dicio['Hora\t'] = logs[y][1][12:20]
+    dicio['IP\t'] = logs[y][0]
+    dicio['Metodo\t'] = logs[y][3]
+    dicio['Caminho'] = logs[y][4]
+    dicio['Resposta'] = logs[y][6]
+    dicio['Tamanho'] = logs[y][7]
+    lista.append(dicio.copy())
     y=y+1
-del logs[len(logs)-1]
 
+'''divisão por aspas onde há espaço'''
+'''
+y=0
+for x in logs:
+    logs[y] = x.split(' ')
+    y=y+1
+'''
+
+''' limpeza da lista'''
+'''
 for x in logs:
     del x[1]
     del x[1]
@@ -49,10 +71,10 @@ for x in logs:
     x[2] = x[2].replace(']','')
     x[3] = x[3].replace('"','')
     x[5] = x[5].replace('"','')
+'''
 
-dicio = OrderedDict()
-lista = []
-
+'''criação da lista de dicionários'''
+'''
 for x in logs:
     dicio['Data\t'] = x[1][0:11]
     dicio['Hora\t'] = x[1][12:20]
@@ -62,7 +84,9 @@ for x in logs:
     dicio['Resposta'] = x[6]
     dicio['Tamanho'] = x[7]
     lista.append(dicio.copy())
+'''
 
+'''Imprime na tela a lista de dicionários'''
 for x in lista:
     for key,value in x.items():
         print key,'\t', value
